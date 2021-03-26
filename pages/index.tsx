@@ -1,10 +1,12 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import { VegaLite } from "react-vega"
+import { VegaLite, VisualizationSpec } from "react-vega";
+import VegaLite2Sql from "../util/vega2sql";
 
-const spec = {
+const spec: VisualizationSpec = {
 	$schema: "https://vega.github.io/schema/vega-lite/v5.json",
 	description: "A simple bar chart with embedded data.",
+	mark: "bar",
 	data: {
 		values: [
 			{ a: "A", b: 28 },
@@ -18,7 +20,6 @@ const spec = {
 			{ a: "I", b: 52 },
 		],
 	},
-	mark: "bar",
 	encoding: {
 		x: { field: "a", type: "nominal", axis: { labelAngle: 0 } },
 		y: { field: "b", type: "quantitative" },
@@ -34,7 +35,8 @@ export default function Home() {
 			</Head>
 
 			<main className={styles.main}>
-				<VegaLite spec={spec} data={spec.data} />
+				{VegaLite2Sql("table", spec)}
+				<VegaLite spec={spec} />
 			</main>
 
 			<footer className={styles.footer}></footer>
