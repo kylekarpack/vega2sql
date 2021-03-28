@@ -1,8 +1,6 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import knex, { Knex } from "knex";
+import type { NextApiRequest, NextApiResponse } from "next";
 import { TopLevelSpec } from "vega-lite";
-import knex from "knex";
-import type { NextApiRequest, NextApiResponse } from 'next'
-
 
 const spec: TopLevelSpec = {
 	$schema: "https://vega.github.io/schema/vega-lite/v5.json",
@@ -21,14 +19,30 @@ const client = knex({
 });
 
 const vegaLite2Sql = (table: string, spec: TopLevelSpec): string => {
-	let query = client.table(table);
-	query = query.select(getSelect(spec));
+	let query = client.table(client.raw(table));
+	select(query, spec);
+	group(query, spec);
 	return query.toString();
 };
 
-const getSelect = (spec: any): string => {
-	return Object.values(spec.encoding).map(el => el.field).join(",")
-}
+const group = (query: Knex.QueryBuilder, spec: TopLevelSpec): void => {
+	const encoding = (spec as any).encoding;
+	for (let key in encoding) {
+		const obj = encoding[key];
+		if (!obj.aggregate) {
+			query = query.groupByRaw(obj.field);
+		}
+	}
+};
+
+const select = (query: Knex.QueryBuilder, spec: TopLevelSpec): void => {
+	const selectStatement = Object.values((spec as any).encoding)
+		.map((el: any) => {
+			return el.aggregate ? `${el.aggregate}(${el.field})` : el.field;
+		})
+		.join(", ");
+	query = query.select(client.raw(selectStatement));
+};
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
 	const tableName: string = req.query?.table?.toString() || "table";
