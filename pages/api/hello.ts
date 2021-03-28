@@ -20,10 +20,19 @@ const client = knex({
 	connection: {},
 });
 
+const vegaLite2Sql = (table: string, spec: TopLevelSpec): string => {
+	let query = client.table(table);
+	query = query.select(getSelect(spec));
+	return query.toString();
+};
+
+const getSelect = (spec: any): string => {
+	return Object.values(spec.encoding).map(el => el.field).join(",")
+}
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
 	const tableName: string = req.query?.table?.toString() || "table";
-	const query = client.table(tableName).select("*").where({ "1": "1" });
+	const query = vegaLite2Sql(tableName, spec);
 
-	res.status(200).send(query.toString());
+	res.status(200).send(query);
 };
