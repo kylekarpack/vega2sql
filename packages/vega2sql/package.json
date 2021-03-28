@@ -1,0 +1,47 @@
+{
+	"name": "vega2sql",
+	"version": "0.0.0",
+	"description": "> TODO: description",
+	"author": "Kyle Karpack <kylekarpack@gmail.com>",
+	"homepage": "https://github.com/kylekarpack/vega2sql#readme",
+	"license": "MIT",
+	"main": "dist/index.js",
+	"browser": "dist/browser.js",
+	"types": "dist/index.d.ts",
+	"targets": {
+		"main": {
+			"outputFormat": "esmodule"
+		},
+		"browser": {
+			"includeNodeModules": true
+		}
+	},
+	"directories": {
+		"lib": "src"
+	},
+	"files": [
+		"src"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/kylekarpack/vega2sql.git"
+	},
+	"scripts": {
+		"build": "node build.js",
+		"test": "echo \"Error: run tests from root\" && exit 1"
+	},
+	"bugs": {
+		"url": "https://github.com/kylekarpack/vega2sql/issues"
+	},
+	"devDependencies": {
+		"microbundle": "^0.13.0",
+		"typescript": "^3.0.0"
+	},
+	"dependencies": {
+		"knex": "^0.95.4",
+		"pg": "^8.5.1"
+	},
+	"peerDependencies": {
+		"vega-lite": "^5.0.0"
+	}
+}

@@ -1,18 +1,14 @@
 import knex, { Knex } from "knex";
-import type { NextApiRequest, NextApiResponse } from "next";
 import { TopLevelSpec } from "vega-lite";
-import {
-	FieldEqualPredicate,
-	FieldPredicate,
-} from "vega-lite/build/src/predicate";
+import { FieldPredicate } from "vega-lite/build/src/predicate";
 
 const spec: TopLevelSpec = {
 	$schema: "https://vega.github.io/schema/vega-lite/v5.json",
 	data: [],
 	mark: "bar",
 	encoding: {
-		x: { aggregate: "mean", field: "yield", as: "yield" },
-		y: { field: "variety", as: "var11" },
+		x: { aggregate: "mean", field: "yield" },
+		y: { field: "variety" },
 		color: { field: "site" },
 	},
 	transform: [{ filter: { field: "yield", range: [0, 100] } }],
@@ -23,14 +19,6 @@ const client = knex({
 	connection: {},
 });
 
-const vegaLite2Sql = (table: string, spec: TopLevelSpec): string => {
-	let query = client.table(table);
-	select(query, spec);
-	filter(query, spec);
-	group(query, spec);
-	return query.toString();
-};
-
 const getFieldProp = (col): { [key: string]: string } | string => {
 	return col.as ? { [col.as]: col.field } : col.field;
 };
@@ -38,7 +26,7 @@ const getFieldProp = (col): { [key: string]: string } | string => {
 const filter = (query: Knex.QueryBuilder, spec: TopLevelSpec): void => {
 	if (spec.transform) {
 		for (let transform of spec.transform) {
-			const filter: FieldPredicate = transform.filter;
+			const filter: FieldPredicate = (transform as any).filter;
 			if (filter && filter.field) {
 				if ("equal" in filter) {
 					query = query.where({ [filter.field]: filter.equal });
@@ -48,6 +36,8 @@ const filter = (query: Knex.QueryBuilder, spec: TopLevelSpec): void => {
 					query = query.where(filter.field, ">", filter.gt);
 				} else if ("range" in filter) {
 					query = query.whereBetween(filter.field, filter.range);
+				} else {
+					throw `Filter ${JSON.stringify(filter)} is not valid`;
 				}
 			}
 		}
@@ -95,9 +85,13 @@ const select = (query: Knex.QueryBuilder, spec: TopLevelSpec): void => {
 	});
 };
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
-	const tableName: string = req.query?.table?.toString() || "table";
-	const query = vegaLite2Sql(tableName, spec);
-
-	res.status(200).send(query);
+const vegaLite2Sql = (table: string, spec: TopLevelSpec): string => {
+	let query = client.table(table);
+	select(query, spec);
+	filter(query, spec);
+	group(query, spec);
+	return query.toString();
 };
+
+export { vegaLite2Sql };
+export default vegaLite2Sql;

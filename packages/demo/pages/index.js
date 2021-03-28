@@ -1,9 +1,9 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { VegaLite, VisualizationSpec } from "react-vega";
-import VegaLite2Sql from "../util/vega2sql";
+import VegaLite2Sql from "vega2sql";
 
-const spec: VisualizationSpec = {
+const spec = {
 	$schema: "https://vega.github.io/schema/vega-lite/v5.json",
 	description: "A simple bar chart with embedded data.",
 	mark: "bar",
