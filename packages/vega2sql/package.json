@@ -1,6 +1,6 @@
 {
 	"name": "vega2sql",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"description": "> TODO: description",
 	"author": "Kyle Karpack <kylekarpack@gmail.com>",
 	"homepage": "https://github.com/kylekarpack/vega2sql#readme",
@@ -10,7 +10,8 @@
 	"types": "dist/index.d.ts",
 	"scripts": {
 		"build": "node ./build.js",
-		"types": "tsc --declaration --emitDeclarationOnly --declarationDir dist"
+		"types": "tsc --declaration --emitDeclarationOnly --declarationDir dist",
+		"prepublish": "yarn build"
 	},
 	"directories": {
 		"lib": "src"
