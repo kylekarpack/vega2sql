@@ -43,5 +43,4 @@ require("esbuild")
 		target: "node10.4",
 		outfile: "dist/index.js",
 	})
-	.catch(() => process.exit(1))
-	.then((r) => r.stop());
+	.catch(() => process.exit(1));
