@@ -3,6 +3,7 @@ const ignorePlugin = require("esbuild-plugin-ignore");
 const common = {
 	entryPoints: ["src/index.ts"],
 	bundle: true,
+	minify: false,
 	external: ["knex"],
 	watch: {
 		onRebuild(error, result) {

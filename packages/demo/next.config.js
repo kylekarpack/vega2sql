@@ -17,9 +17,9 @@ module.exports = {
 			new webpack.IgnorePlugin(/strong-oracle/, /\/knex\//),
 			new webpack.IgnorePlugin(/pg-native/, /\/pg\//),
 		]);
-		config.externals = {
-			fs: "fs",
-		};
+		config.node = {
+			fs: "empty"
+		}
 		return config;
 	},
 };
