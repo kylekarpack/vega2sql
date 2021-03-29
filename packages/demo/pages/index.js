@@ -1,5 +1,6 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
+import vegalite2Sql from "vega2sql";
 
 const spec = {
 	$schema: "https://vega.github.io/schema/vega-lite/v5.json",
@@ -24,7 +25,7 @@ const spec = {
 	},
 };
 
-const output = 	"test"
+const output = 	vegalite2Sql("table", spec)
 
 
 export default function Home() {

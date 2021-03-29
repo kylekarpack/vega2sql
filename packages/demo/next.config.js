@@ -1,19 +1,24 @@
-var fs = require("fs");
-const nodeModules = {};
-fs.readdirSync("node_modules")
-	.filter((x) => {
-		return [".bin"].indexOf(x) === -1;
-	})
-	.forEach((mod) => {
-		nodeModules[mod] = `commonjs ${mod}`;
-	});
-
-delete nodeModules.vega2sql;
+const nodeExternals = require("webpack-node-externals");
 
 module.exports = {
 	webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-		config.externals = { knex: "commonjs knex" };
-		// Important: return the modified config
+		config.plugins = config.plugins.concat([
+			new webpack.NormalModuleReplacementPlugin(
+				/\.\.\/migrate/,
+				function () {}
+			),
+			new webpack.NormalModuleReplacementPlugin(/\.\.\/seed/, function () {}),
+			new webpack.IgnorePlugin(/mariasql/, /\/knex\//),
+			new webpack.IgnorePlugin(/mssql/, /\/knex\//),
+			new webpack.IgnorePlugin(/mysql/, /\/knex\//),
+			new webpack.IgnorePlugin(/mysql2/, /\/knex\//),
+			new webpack.IgnorePlugin(/oracle/, /\/knex\//),
+			new webpack.IgnorePlugin(/oracledb/, /\/knex\//),
+			new webpack.IgnorePlugin(/pg-query-stream/, /\/knex\//),
+			new webpack.IgnorePlugin(/sqlite3/, /\/knex\//),
+			new webpack.IgnorePlugin(/strong-oracle/, /\/knex\//),
+			new webpack.IgnorePlugin(/pg-native/, /\/pg\//),
+		]);
 		return config;
 	},
 };

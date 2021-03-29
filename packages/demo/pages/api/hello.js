@@ -6,7 +6,7 @@ const spec = {
 	mark: "bar",
 	encoding: {
 		x: { aggregate: "mean", field: "yield" },
-		y: { field: "variety" },
+		y: { field: "variety", as: "var2" },
 		color: { field: "site" },
 	},
 	transform: [{ filter: { field: "yield", range: [0, 100] } }],

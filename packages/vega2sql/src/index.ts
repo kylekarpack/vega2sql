@@ -1,9 +1,9 @@
-import knex, { Knex } from "knex";
+import {knex} from "knex";
 import { TopLevelSpec } from "vega-lite";
 import { FieldPredicate } from "vega-lite/build/src/predicate";
 
 const client = knex({
-	client: "postgres",
+	client: "pg",
 	connection: {},
 });
 
