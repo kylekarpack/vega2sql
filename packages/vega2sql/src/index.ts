@@ -19,11 +19,11 @@ const client = knex({
 	connection: {},
 });
 
-const getFieldProp = (col): { [key: string]: string } | string => {
+const getFieldProp = (col: any): { [key: string]: string } | string => {
 	return col.as ? { [col.as]: col.field } : col.field;
 };
 
-const filter = (query: Knex.QueryBuilder, spec: TopLevelSpec): void => {
+const filter = (query: any, spec: TopLevelSpec): void => {
 	if (spec.transform) {
 		for (let transform of spec.transform) {
 			const filter: FieldPredicate = (transform as any).filter;
@@ -44,7 +44,7 @@ const filter = (query: Knex.QueryBuilder, spec: TopLevelSpec): void => {
 	}
 };
 
-const group = (query: Knex.QueryBuilder, spec: TopLevelSpec): void => {
+const group = (query: any, spec: TopLevelSpec): void => {
 	const encoding = (spec as any).encoding;
 	for (let key in encoding) {
 		const obj = encoding[key];
@@ -54,7 +54,7 @@ const group = (query: Knex.QueryBuilder, spec: TopLevelSpec): void => {
 	}
 };
 
-const select = (query: Knex.QueryBuilder, spec: TopLevelSpec): void => {
+const select = (query: any, spec: TopLevelSpec): void => {
 	Object.values((spec as any).encoding).forEach((el: any) => {
 		const fieldProp = getFieldProp(el);
 		const aggregate = el.aggregate?.toLowerCase() ?? el.op?.toLowerCase();
@@ -93,5 +93,4 @@ const vegaLite2Sql = (table: string, spec: TopLevelSpec): string => {
 	return query.toString();
 };
 
-export { vegaLite2Sql };
 export default vegaLite2Sql;
