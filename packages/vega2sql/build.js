@@ -5,15 +5,15 @@ const common = {
 	bundle: true,
 	minify: false,
 	external: ["knex"],
-	watch: {
-		onRebuild(error, result) {
-			if (error) {
-				console.error("watch build failed:", error);
-			} else {
-				console.error("watch build succeeded:", result);
-			}
-		},
-	},
+	// watch: {
+	// 	onRebuild(error, result) {
+	// 		if (error) {
+	// 			console.error("watch build failed:", error);
+	// 		} else {
+	// 			console.error("watch build succeeded:", result);
+	// 		}
+	// 	},
+	// },
 	plugins: [
 		ignorePlugin([
 			{
