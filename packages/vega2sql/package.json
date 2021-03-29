@@ -11,8 +11,7 @@
 	"module": "dist/index.module.js",
 	"unpkg": "dist/index.umd.js",
 	"scripts": {
-		"build": "esbuild src/index.ts --bundle --external:knex --platform=node --target=node10.4 --outfile=dist/index.js",
-		"dev": "microbundle watch"
+		"build": "node ./build.js"
 	},
 	"directories": {
 		"lib": "src"
@@ -30,6 +29,7 @@
 	"devDependencies": {
 		"aws-sdk": "^2.874.0",
 		"esbuild": "^0.10.2",
+		"esbuild-plugin-ignore": "^1.1.0",
 		"microbundle": "^0.13.0",
 		"mysql": "^2.18.1",
 		"mysql2": "^2.2.5",
