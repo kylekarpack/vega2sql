@@ -1,6 +1,4 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
-import vegalite2Sql from "vega2sql";
 
 const spec = {
 	$schema: "https://vega.github.io/schema/vega-lite/v5.json",
@@ -25,23 +23,23 @@ const spec = {
 	},
 };
 
-const output = 	vegalite2Sql("table", spec)
+const output =  "test" //	vegalite2Sql("table", spec)
 
 
 export default function Home() {
 	return (
-		<div className={styles.container}>
+		<div>
 			<Head>
 				<title>Vega to SQL</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<main className={styles.main}>
+			<main>
 				{output}
 				{/* <VegaLite spec={spec} /> */}
 			</main>
 
-			<footer className={styles.footer}></footer>
+			<footer></footer>
 		</div>
 	);
 }

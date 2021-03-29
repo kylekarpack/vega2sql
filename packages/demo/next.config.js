@@ -1,5 +1,3 @@
-const nodeExternals = require("webpack-node-externals");
-
 module.exports = {
 	webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
 		config.plugins = config.plugins.concat([

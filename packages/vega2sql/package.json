@@ -7,11 +7,10 @@
 	"license": "MIT",
 	"source": "src/index.ts",
 	"main": "dist/index.js",
-	"exports": "./dist/index.modern.js",
-	"module": "dist/index.module.js",
-	"unpkg": "dist/index.umd.js",
+	"types": "dist/index.d.ts",
 	"scripts": {
-		"build": "node ./build.js"
+		"build": "node ./build.js",
+		"types": "tsc --declaration --emitDeclarationOnly --declarationDir dist"
 	},
 	"directories": {
 		"lib": "src"
