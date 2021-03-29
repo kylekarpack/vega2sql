@@ -9,13 +9,10 @@
   },
   "dependencies": {
     "knex": "^0.95.4",
-    "mysql": "^2.18.1",
     "next": "10.0.9",
-    "pg": "^8.5.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "react-vega": "^7.4.2",
-    "vega-lite": "^5.0.0"
+    "react-vega": "^7.4.2"
   },
   "devDependencies": {
     "@types/node": "^14.14.35",

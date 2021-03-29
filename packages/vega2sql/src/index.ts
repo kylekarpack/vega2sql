@@ -2,18 +2,6 @@ import knex, { Knex } from "knex";
 import { TopLevelSpec } from "vega-lite";
 import { FieldPredicate } from "vega-lite/build/src/predicate";
 
-const spec: TopLevelSpec = {
-	$schema: "https://vega.github.io/schema/vega-lite/v5.json",
-	data: [],
-	mark: "bar",
-	encoding: {
-		x: { aggregate: "mean", field: "yield" },
-		y: { field: "variety" },
-		color: { field: "site" },
-	},
-	transform: [{ filter: { field: "yield", range: [0, 100] } }],
-};
-
 const client = knex({
 	client: "postgres",
 	connection: {},

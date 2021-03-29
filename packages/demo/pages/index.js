@@ -1,7 +1,5 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import { VegaLite, VisualizationSpec } from "react-vega";
-import VegaLite2Sql from "vega2sql";
 
 const spec = {
 	$schema: "https://vega.github.io/schema/vega-lite/v5.json",
@@ -26,6 +24,9 @@ const spec = {
 	},
 };
 
+const output = 	"test"
+
+
 export default function Home() {
 	return (
 		<div className={styles.container}>
@@ -35,8 +36,8 @@ export default function Home() {
 			</Head>
 
 			<main className={styles.main}>
-				{VegaLite2Sql("table", spec)}
-				<VegaLite spec={spec} />
+				{output}
+				{/* <VegaLite spec={spec} /> */}
 			</main>
 
 			<footer className={styles.footer}></footer>

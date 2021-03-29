@@ -11,7 +11,7 @@
 	"module": "dist/index.module.js",
 	"unpkg": "dist/index.umd.js",
 	"scripts": {
-		"build": "microbundle",
+		"build": "esbuild src/index.ts --bundle --external:knex --platform=node --target=node10.4 --outfile=dist/index.js",
 		"dev": "microbundle watch"
 	},
 	"directories": {
@@ -28,11 +28,14 @@
 		"url": "https://github.com/kylekarpack/vega2sql/issues"
 	},
 	"devDependencies": {
+		"aws-sdk": "^2.874.0",
+		"esbuild": "^0.10.2",
 		"microbundle": "^0.13.0",
 		"mysql": "^2.18.1",
 		"mysql2": "^2.2.5",
 		"oracledb": "^5.1.0",
 		"pg": "^8.5.1",
+		"sqlite3": "^5.0.2",
 		"typescript": "^3.0.0"
 	},
 	"dependencies": {
