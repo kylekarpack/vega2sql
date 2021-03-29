@@ -9,7 +9,7 @@ const spec = {
 		y: { field: "variety", as: "var2" },
 		color: { field: "site" },
 	},
-	transform: [{ filter: { field: "yield", range: [0, 100] } }],
+	transform: [{ filter: { field: "yield", oneOf: [0, 100] } }],
 };
 
 export default (req, res) => {
